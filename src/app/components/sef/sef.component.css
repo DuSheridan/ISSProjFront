@@ -1,0 +1,45 @@
+.container{
+  display: flex;
+  flex-shrink: 0;
+}
+
+.container label, input {
+  margin: 5px;
+  padding: 5px;
+}
+
+.container table{
+  width: 100%;
+}
+
+.creare{
+  width: 100%;
+  padding-left: 200px;
+}
+
+.stergere{
+  margin-bottom: 50px;
+  width: 100%;
+  padding-right: 200px;
+}
+
+.del_button{
+  margin-left: 300px;
+  margin-top: 10px;
+}
+
+.list_header{
+  margin-left: 300px;
+}
+
+.header{
+  text-align: center;
+}
+
+.medicament{
+  margin-bottom: 100px;
+}
+
+.smallerheader{
+  margin-bottom: 40px;
+}

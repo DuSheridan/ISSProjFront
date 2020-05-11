@@ -1,0 +1,53 @@
+.all{
+  padding-left: 75px;
+  display: flex;
+  width: 100%;
+}
+
+.header{
+  text-align: center;
+}
+
+.list_with_button{
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: 90px;
+}
+
+.list_comenzi{
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: 90px;
+}
+
+.viz_comanda{
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: 90px;
+}
+
+input {
+  left: 10px;
+  top: 10px;
+  width: 100px;
+  height: 20px;
+  font-size: 14pt;
+  border: solid 0.5px #000;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.button_c{
+  margin-top: 15px;
+}
+
+.button_inreg{
+  margin-top: 30px;
+}
+
+.table{
+  width: 100%;
+}
