@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import { LoginService } from '../../services/login.service';
+import {LoginService} from '../../services/login.service';
+import {ANGAJAT, SEF} from '../../interfaces/interfaces';
+
 
 @Component({
   selector: 'app-login',
@@ -8,40 +10,50 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user_data;
+  public userData;
 
-  constructor(private router: Router, private login_service: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) {
+  }
 
   ngOnInit(): void {
   }
 
-  login(){
-    var nume = (<HTMLInputElement>document.getElementById("nume")).value
-    var parola = (<HTMLInputElement>document.getElementById("parola")).value
-    this.login_service.login(nume, parola).subscribe(result => this.user_data = result.data);
+  login() {
+    const nume = (<HTMLInputElement> document.getElementById('nume')).value;
+    const parola = (<HTMLInputElement> document.getElementById('parola')).value;
 
-    console.log(nume, parola)
 
-    setTimeout(()=>{
-      this.autentificare()
-    }, 100);
+    // TODO: uncomment this after connecting it to the API
+    // this.loginService.login(nume, parola).subscribe(result => {
+    //   // -->Set: data
+    //   this.userData = result.data;
+    //   // -->Autentificare
+    //   this.autentificare();
+    // });
+
+    // TODO: delete this
+    this.userData = { tip: SEF, id: '1231313', nume: 'name'};
+    this.autentificare();
+
+    console.log(nume, parola);
   }
 
-  autentificare(){
-    console.log(this.user_data)
-    if (this.user_data === undefined || this.user_data.length == 0){
-      alert("Autentificarea esuata!")
+  autentificare() {
+    console.log(this.userData);
+    if (this.userData === undefined || this.userData.length === 0) {
+      alert('Autentificarea esuata!');
       return;
     }
-    var tip = this.user_data.tip;
-    var id = this.user_data.id;
+
+    const tip = this.userData.tip;
+    const id = this.userData.id;
     localStorage.setItem('isLogged', 'true');
     localStorage.setItem('id', String(id));
     localStorage.setItem('tip', tip);
-    if (tip == "Sef"){
+    if (tip === SEF) {
       this.router.navigateByUrl('/sef');
     }
-    if (tip == "Angajat"){
+    if (tip === ANGAJAT) {
       this.router.navigateByUrl('/angajat');
     }
 

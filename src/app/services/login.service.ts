@@ -1,25 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Constants } from '../constants';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Constants} from '../constants';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {Observable, of, throwError} from 'rxjs';
+import {catchError, retry} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  login(nume: any, parola: any): Observable<any>{
-    var data = {
-      nume: nume,
-      parola: parola
-    }
-    return this.http.post<any>(Constants.API_ENDPOINT+"login", data)
-    .pipe(
-      catchError(this.handleError)
-    );
+  public login(nume: any, parola: any): Observable<any> {
+    const data = {
+      nume,
+      parola
+    };
+    return this.http.post<any>(Constants.API_ENDPOINT + 'login', data)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
 
