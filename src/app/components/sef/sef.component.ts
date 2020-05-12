@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SefService} from '../../services/sef.service';
 import {Router} from '@angular/router';
 import {SEF} from '../../interfaces/interfaces';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sef',
@@ -27,8 +28,16 @@ export class SefComponent implements OnInit {
     {id: '3', numeUtilizator: 'Ghitulescu', nume: 'Ghita 3', prenume: 'pule n maturi', tip: 'Angajat'}
   ];
 
+  public fg;
+
 
   constructor(private router: Router, private sefService: SefService) {
+    this.fg = new FormGroup({
+      numeUtilizator: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      nume: new FormControl('', [Validators.required]),
+      prenume: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit(): void {
@@ -38,9 +47,7 @@ export class SefComponent implements OnInit {
     if (localStorage.getItem('isLogged') !== 'true' || localStorage.getItem('tip') !== SEF) {
       this.router.navigateByUrl('/login');
     } else {
-
-      //  todo: uncomment this
-      //   this.refresh();
+      this.refresh();
     }
   }
 
@@ -72,7 +79,7 @@ export class SefComponent implements OnInit {
     if (r === true) {
       this.sefService.deleteUser(id).subscribe(res => {
         this.refresh();
-      })
+      });
     }
   }
 
@@ -86,6 +93,17 @@ export class SefComponent implements OnInit {
         this.refresh();
       });
     }
+  }
+
+  /**
+   *
+   */
+  public createUser() {
+    // -->Get: data
+    const data = this.fg.value;
+    this.sefService.createUSer(data).subscribe(a => {
+      this.refresh();
+    });
   }
 
 

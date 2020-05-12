@@ -40,6 +40,13 @@ export class SefService {
       );
   }
 
+  public createUSer(data: any): Observable<any> {
+    return this.http.post<any>(Constants.API_ENDPOINT + 'users/create', {data})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   public listAllTasks(): Observable<any> {
     return this.http.get<any>(Constants.API_ENDPOINT + 'task/list')
       .pipe(

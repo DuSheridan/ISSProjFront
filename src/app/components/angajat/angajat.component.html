@@ -1,0 +1,29 @@
+<ul class="nav container py-2">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Sclav</a>
+  </li>
+  <li class="nav-item">
+    <button (click)="logout()" class="btn btn-primary">Logout
+    </button>
+  </li>
+</ul>
+
+
+<div class="container d-flex flex-column py-5">
+  <h3 class="text-center">Lista sarcini</h3>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">description</th>
+      <th scope="col">status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of listaSarcini">
+      <th>{{ user.description }}</th>
+      <th>{{ user.status }}</th>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

@@ -9,6 +9,7 @@ import { AngajatComponent } from './components/angajat/angajat.component';
 import { SefComponent } from './components/sef/sef.component';
 import { LoginComponent } from './components/login/login.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     AppRoutingModule,
     MatTableModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

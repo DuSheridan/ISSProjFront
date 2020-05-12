@@ -40,8 +40,8 @@ export class AngajatService {
       );
   }
 
-  public listAllTasks(): Observable<any> {
-    return this.http.get<any>(Constants.API_ENDPOINT + 'task/list')
+  public listAllTasks(id): Observable<any> {
+    return this.http.post<any>(Constants.API_ENDPOINT + 'task/list', {id})
       .pipe(
         catchError(this.handleError)
       );

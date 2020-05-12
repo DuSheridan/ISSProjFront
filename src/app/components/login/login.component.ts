@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     // });
 
     // TODO: delete this
-    this.userData = { tip: SEF, id: '1231313', nume: 'name'};
+    this.userData = { tip: ANGAJAT, id: '1231313', nume: 'name'};
     this.autentificare();
 
     console.log(nume, parola);
