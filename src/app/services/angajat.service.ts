@@ -12,33 +12,6 @@ export class AngajatService {
   constructor(private http: HttpClient) {
   }
 
-  public listAllUsers(): Observable<any> {
-    return this.http.get<any>(Constants.API_ENDPOINT + 'users/list')
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  public deleteUser(id: string): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'users/delete', {id})
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  public listAllEmployees(userId: string): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'employees/list', {id: userId})
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  public createTask(data: any): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'task/create', {data})
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
 
   public listAllTasks(id): Observable<any> {
     return this.http.post<any>(Constants.API_ENDPOINT + 'task/list', {id})
