@@ -1,8 +1,6 @@
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {Medicament} from '../../classes/Medicament';
 import {ActivatedRoute} from '@angular/router';
 import {Router} from '@angular/router';
-import {Comanda} from '../../classes/Comanda';
 import {ANGAJAT} from '../../interfaces/interfaces';
 import {SefService} from '../../services/sef.service';
 import {AngajatService} from '../../services/angajat.service';
