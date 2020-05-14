@@ -13,42 +13,48 @@ export class SefService {
   }
 
   public listAllUsers(): Observable<any> {
-    return this.http.get<any>(Constants.API_ENDPOINT + 'users/list')
+    return this.http.get<any>(Constants.API_ENDPOINT + 'utilizator/list')
       .pipe(
         catchError(this.handleError)
       );
   }
 
   public deleteUser(id: string): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'users/delete', {id})
+    return this.http.post<any>(Constants.API_ENDPOINT + 'utilizator/delete', {id: id})
       .pipe(
         catchError(this.handleError)
       );
   }
 
   public listAllEmployees(userId: string): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'employees/list', {id: userId})
+    return this.http.post<any>(Constants.API_ENDPOINT + 'angajat/list', {id: userId})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public createTask(data: any): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'task/create', {data})
+  public createTask(angajat_id, sef_id, descr): Observable<any> {
+    const data = {
+      angajat_id: angajat_id,
+      sef_id: sef_id,
+      descriere: descr
+    }
+    return this.http.post<any>(Constants.API_ENDPOINT + 'sarcina/create', data)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public createUSer(data: any): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'users/create', {data})
+  public createUser(data: any, firma_id): Observable<any> {
+    data.firma_id = firma_id
+    return this.http.post<any>(Constants.API_ENDPOINT + 'utilizator/create', data)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   public listAllTasks(): Observable<any> {
-    return this.http.get<any>(Constants.API_ENDPOINT + 'task/list')
+    return this.http.get<any>(Constants.API_ENDPOINT + 'sarcina/list')
       .pipe(
         catchError(this.handleError)
       );

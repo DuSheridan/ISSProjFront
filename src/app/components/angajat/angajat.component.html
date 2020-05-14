@@ -1,6 +1,6 @@
 <ul class="nav container py-2">
   <li class="nav-item">
-    <a class="nav-link active" href="#">Sclav</a>
+    <a class="nav-link active" href="#">Angajat {{ username }}</a>
   </li>
   <li class="nav-item">
     <button (click)="logout()" class="btn btn-primary">Logout
@@ -14,14 +14,20 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">description</th>
+      <th scope="col">descriere</th>
       <th scope="col">status</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of listaSarcini">
-      <th>{{ user.description }}</th>
-      <th>{{ user.status }}</th>
+    <tr *ngFor="let sarcina of listaSarcini">
+      <th>{{ sarcina.descriere }}</th>
+      <th>{{ sarcina.status }}</th>
+      <th>
+        <button (click)="update_task(sarcina.id)" class="btn btn-primary" type="button">
+          Am terminat sarcina
+        </button>
+      </th>
     </tr>
     </tbody>
   </table>

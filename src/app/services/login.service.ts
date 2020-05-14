@@ -14,8 +14,8 @@ export class LoginService {
 
   public login(nume: any, parola: any): Observable<any> {
     const data = {
-      nume,
-      parola
+      nume_utilizator: nume,
+      parola_utilizator: parola
     };
     return this.http.post<any>(Constants.API_ENDPOINT + 'login', data)
       .pipe(

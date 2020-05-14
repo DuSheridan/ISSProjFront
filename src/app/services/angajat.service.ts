@@ -14,10 +14,20 @@ export class AngajatService {
 
 
   public listAllTasks(id): Observable<any> {
-    return this.http.post<any>(Constants.API_ENDPOINT + 'task/list', {id})
+    return this.http.post<any>(Constants.API_ENDPOINT + 'sarcina/list', {id: id})
       .pipe(
         catchError(this.handleError)
       );
+  }
+  public update_sarcina(sarcina_id, angajat_id): Observable<any> {
+    const data = {
+      sarcina_id: sarcina_id,
+      angajat_id: angajat_id
+    };
+    return this.http.post<any>(Constants.API_ENDPOINT + 'sarcina/update', data)
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {

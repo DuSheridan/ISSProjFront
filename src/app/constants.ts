@@ -1,3 +1,3 @@
 export class Constants {
-  public static API_ENDPOINT = 'localhost:3000/';
+  public static API_ENDPOINT = 'http://127.0.0.1:3000/';
 }

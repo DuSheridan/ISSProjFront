@@ -23,18 +23,13 @@ export class LoginComponent implements OnInit {
     const parola = (<HTMLInputElement> document.getElementById('parola')).value;
 
 
-    // TODO: uncomment this after connecting it to the API
-    // this.loginService.login(nume, parola).subscribe(result => {
-    //   // -->Set: data
-    //   this.userData = result.data;
-    //   // -->Autentificare
-    //   this.autentificare();
-    // });
-
-    // TODO: delete this
-    this.userData = { tip: ANGAJAT, id: '1231313', nume: 'name'};
-    this.autentificare();
-
+    this.loginService.login(nume, parola).subscribe(result => {
+      // -->Set: data
+      this.userData = result.data;
+      console.log(this.userData)
+      // -->Autentificare
+      this.autentificare();
+    });
     console.log(nume, parola);
   }
 
@@ -46,10 +41,15 @@ export class LoginComponent implements OnInit {
     }
 
     const tip = this.userData.tip;
-    const id = this.userData.id;
+    const firma_id = this.userData.firma_id;
+    const utilizator_id = this.userData.id;
+    const nume = this.userData.nume
+    console.log(tip, firma_id, utilizator_id);
     localStorage.setItem('isLogged', 'true');
-    localStorage.setItem('id', String(id));
+    localStorage.setItem('firma_id', String(firma_id));
+    localStorage.setItem('utilizator_id', utilizator_id);
     localStorage.setItem('tip', tip);
+    localStorage.setItem('nume', nume);
     if (tip === SEF) {
       this.router.navigateByUrl('/sef');
     }

@@ -14,13 +14,8 @@ import {AngajatService} from '../../services/angajat.service';
 })
 export class AngajatComponent implements OnInit {
 
-  public listaSarcini = [
-    {id: '1', description: 'baga descriere0', status: 'DONE'},
-    {id: '2', description: 'baga descriere1', status: 'DONE'},
-    {id: '3', description: 'baga descriere2', status: 'DONE'},
-    {id: '4', description: 'baga descriere3', status: 'DONE'},
-  ];
-
+  public listaSarcini = [];
+  public username = localStorage.getItem("nume_utilizator") ? localStorage.getItem("nume_utilizator") : ""
   constructor(private angajatService: AngajatService, private router: Router) {
   }
 
@@ -40,11 +35,18 @@ export class AngajatComponent implements OnInit {
    * Refresh
    */
   public refresh() {
-    const id = localStorage.getItem('id') ? localStorage.getItem('id') : '1';
+    const id = localStorage.getItem('utilizator_id')
     // -->Get: all users
-    this.angajatService.listAllTasks(id).subscribe(users => {
-      this.listaSarcini = users;
+    this.angajatService.listAllTasks(id).subscribe(result => {
+      this.listaSarcini = result.data;
     });
+  }
+
+  public update_task(sarcina_id) {
+    const angajat_id = localStorage.getItem('utilizator_id')
+    this.angajatService.update_sarcina(sarcina_id, angajat_id).subscribe(result => {
+      this.listaSarcini = result.data
+    })
   }
 
   public logout() {

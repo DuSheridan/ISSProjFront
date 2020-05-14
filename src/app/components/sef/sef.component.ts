@@ -10,33 +10,20 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./sef.component.css']
 })
 export class SefComponent implements OnInit {
-  // TODO: sterge si lasa doar arayuri
-  public listaAngajati = [
-    {id: '1', nume: 'Ghita 1', prenume: 'pule n maturi', timpSosire: Date.now()},
-    {id: '2', nume: 'Ghita 2', prenume: 'pule n maturi', timpSosire: Date.now()},
-    {id: '3', nume: 'Ghita 3', prenume: 'pule n maturi', timpSosire: Date.now()}
-  ];
-  public listaSarcini = [
-    {id: '1', description: 'baga descriere0', status: 'DONE'},
-    {id: '2', description: 'baga descriere1', status: 'DONE'},
-    {id: '3', description: 'baga descriere2', status: 'DONE'},
-    {id: '4', description: 'baga descriere3', status: 'DONE'},
-  ];
-  public listaUseri = [
-    {id: '1', numeUtilizator: 'Ghitulescu', nume: 'Ghita 1', prenume: 'pule n maturi', tip: 'Angajat'},
-    {id: '2', numeUtilizator: 'Ghitulescu', nume: 'Ghita 2', prenume: 'pule n maturi', tip: 'Angajat'},
-    {id: '3', numeUtilizator: 'Ghitulescu', nume: 'Ghita 3', prenume: 'pule n maturi', tip: 'Angajat'}
-  ];
-
+  public listaAngajati = [];
+  public listaSarcini = [];
+  public listaUseri = [];
+  public username = localStorage.getItem("nume_utilizator") ? localStorage.getItem("nume_utilizator") : ""
   public fg;
 
 
   constructor(private router: Router, private sefService: SefService) {
     this.fg = new FormGroup({
-      numeUtilizator: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      nume_utilizator: new FormControl('', [Validators.required]),
+      parola_utilizator: new FormControl('', [Validators.required]),
       nume: new FormControl('', [Validators.required]),
       prenume: new FormControl('', [Validators.required]),
+      tip: new FormControl('', [Validators.required])
     });
   }
 
@@ -56,18 +43,19 @@ export class SefComponent implements OnInit {
    * Refresh
    */
   public refresh() {
-    const id = localStorage.getItem('id') ? localStorage.getItem('id') : '1';
+    const firma_id = localStorage.getItem('firma_id') ? localStorage.getItem('firma_id') : '1';
     // -->Get: all users
-    this.sefService.listAllUsers().subscribe(users => {
-      this.listaUseri = users;
+    this.sefService.listAllUsers().subscribe(result => {
+      this.listaUseri = result.data;
     });
     // -->Get: all employees
-    this.sefService.listAllEmployees(id).subscribe(employees => {
-      this.listaAngajati = employees;
+    this.sefService.listAllEmployees(firma_id).subscribe(result => {
+      this.listaAngajati = result.data;
+      console.log(result.data);
     });
-    // -->Get: all users
-    this.sefService.listAllTasks().subscribe(users => {
-      this.listaSarcini = users;
+    // -->Get: all tasks
+    this.sefService.listAllTasks().subscribe(result => {
+      this.listaSarcini = result.data;
     });
   }
 
@@ -75,7 +63,7 @@ export class SefComponent implements OnInit {
    * Delete user
    */
   public deleteUser(id) {
-    const r = confirm('Esti sigur ca vrei sa-l stergi pe Vasilica?');
+    const r = confirm('Esti sigur ca vrei sa stergi utilizatorul');
     if (r === true) {
       this.sefService.deleteUser(id).subscribe(res => {
         this.refresh();
@@ -87,9 +75,11 @@ export class SefComponent implements OnInit {
    * Add task
    */
   public addTask(id) {
-    const res = prompt('Adauga descriere la task', 'Fa curat in grajd');
+    const res = prompt('Adauga descriere la task', 'Ex. descriere ');
     if (res) {
-      this.sefService.createTask(id).subscribe(a => {
+      console.log(res)
+      const sef_id = localStorage.getItem("utilizator_id")
+      this.sefService.createTask(id, sef_id, res).subscribe(a => {
         this.refresh();
       });
     }
@@ -100,8 +90,9 @@ export class SefComponent implements OnInit {
    */
   public createUser() {
     // -->Get: data
-    const data = this.fg.value;
-    this.sefService.createUSer(data).subscribe(a => {
+    var data = this.fg.value;
+    const firma_id = localStorage.getItem("firma_id")
+    this.sefService.createUser(data, firma_id).subscribe(a => {
       this.refresh();
     });
   }
